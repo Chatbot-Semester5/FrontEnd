@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ChakraProvider } from '@chakra-ui/react';
+
+import Navbar from "./components/Navbar";
+
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import DomainSelection from './pages/DomainSelection';
 
 function App() {
+  const [auth, setAuth] = useState(false);
+  const [signInClicked, setSignInClicked] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+    <Router>
+    <Navbar Auth={auth} />
+      <Switch >
+        {/* Common Routes */}
+        <Route path="/signUp" exact component={SignUp}/>
+        <Route path="/signin" exact component={SignIn} exact/>
+        <Route path="/domainselection" exact component={DomainSelection} exact/>
+        </Switch>
+    </Router>
+  </ChakraProvider>
   );
 }
 
